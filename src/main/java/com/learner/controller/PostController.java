@@ -1,7 +1,9 @@
 package com.learner.controller;
 
+import com.learner.config.AppConstants;
 import com.learner.payLoad.ApiResponse;
 import com.learner.payLoad.PostDto;
+import com.learner.payLoad.PostResponse;
 import com.learner.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,8 +37,8 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getAllPosts(){
-        List<PostDto> posts = postService.getAllPost();
+    public ResponseEntity<PostResponse> getAllPosts(@RequestParam(value = "pageNumber",defaultValue = AppConstants.PAGE_NUMBER,required = false) Integer pageNumber, @RequestParam(value = "pageSize",defaultValue =AppConstants.PAGE_SIZE,required = false ) Integer pageSize, @RequestParam(value = "sortBy",defaultValue =AppConstants.SORT_BY,required = false ) String sortBy){
+        PostResponse posts = postService.getAllPost(pageNumber,pageSize,sortBy);
         return new ResponseEntity<>(posts,HttpStatus.OK);
     }
     @GetMapping("/posts/{postId}")
@@ -53,5 +55,11 @@ public class PostController {
     public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto,@PathVariable Integer postId){
         PostDto updatedPost = postService.updatePost(postDto,postId);
         return new ResponseEntity<>(updatedPost,HttpStatus.OK);
+    }
+
+    @GetMapping("/posts/search/{keywords}")
+    public ResponseEntity<List<PostDto>> search(@PathVariable String keywords){
+        List<PostDto> postDto = postService.searchPosts(keywords);
+        return new ResponseEntity<>(postDto,HttpStatus.OK);
     }
 }
