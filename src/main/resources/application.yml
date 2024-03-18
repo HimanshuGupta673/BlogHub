@@ -10,3 +10,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+
+#for file/image
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
