@@ -1,10 +1,14 @@
 package com.learner.payLoad;
 
+import com.learner.entities.Role;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Singular;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,4 +30,6 @@ public class UserDto {
 
     @NotEmpty
     private String about;
+
+    private Set<RoleDto> roles = new HashSet<>();
 }

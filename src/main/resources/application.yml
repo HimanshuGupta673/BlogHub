@@ -12,6 +12,7 @@ spring:
       ddl-auto: update
 
 
+
 #for file/image
   servlet:
     multipart:

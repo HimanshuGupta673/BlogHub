@@ -3,7 +3,9 @@ package com.learner.controller;
 import com.learner.exceptions.ApiException;
 import com.learner.payLoad.JwtAuthRequest;
 import com.learner.payLoad.JwtAuthResponse;
+import com.learner.payLoad.UserDto;
 import com.learner.security.JwtTokenHelper;
+import com.learner.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager manager;
+
+    @Autowired
+    private UserService userService;
 
 
     @Autowired
@@ -63,6 +68,13 @@ public class AuthController {
     @ExceptionHandler(BadCredentialsException.class)
     public String exceptionHandler() {
         return "Credentials Invalid !!";
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
+        UserDto userDto1 = userService.registerNewUser(userDto);
+
+        return new ResponseEntity<>(userDto1,HttpStatus.CREATED);
     }
 
 }
