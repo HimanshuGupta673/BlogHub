@@ -26,11 +26,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebSecurity
 @EnableWebMvc
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)  // like @PreAuthorize and @PostAuthorize
 public class SecurityConfig{
     @Autowired
     private CustomUserDetailService customUserDetailService;
-//
+
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
